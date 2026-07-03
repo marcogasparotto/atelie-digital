@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+:root {
+  /* ===== Paleta caramelo — inspirada em ateliês de arte/quadros, troque os tons se quiser ===== */
+  --color-cream: #FBF3E7;       /* fundo principal, creme quente */
+  --color-caramel: #C17F3E;     /* caramelo principal — botões, links, destaques */
+  --color-caramel-deep: #8A5225;/* caramelo escuro — títulos, hover */
+  --color-choc: #3B2A1E;        /* texto principal, marrom chocolate */
+  --color-blush: #EFD9BE;       /* bege claro — fundo de cards */
+  --color-line: #E3CBA8;        /* linhas divisórias */
+  --color-leaf: #7C8B5C;        /* verde oliva suave — contraponto do floral no rodapé */
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-choc);
+  font-family: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+/* Carrossel de depoimentos: esconde a barra de scroll mas mantém o gesto de arrastar/scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

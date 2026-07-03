@@ -1,0 +1,41 @@
+---
+const faqs = [
+  {
+    q: "Qual o prazo de entrega?",
+    a: "Cada encomenda é pintada do zero, então o prazo varia com a complexidade da peça — combinado direto com você antes de começar.",
+  },
+  {
+    q: "Posso pedir uma cor ou tema específico?",
+    a: "Pode sim! Toda peça é feita sob medida, na paleta e no tema que você escolher.",
+  },
+  {
+    q: "Como cuidar do quadro depois de receber?",
+    a: "Evite luz solar direta e umidade excessiva. Limpeza com pano seco e macio já resolve.",
+  },
+  {
+    q: "Quais as formas de pagamento?",
+    a: "Pix, cartão de crédito e boleto — detalhe conforme o que ela realmente aceita.",
+  },
+];
+---
+
+<section id="faq" class="border-t border-[var(--color-line)]">
+  <div class="max-w-3xl mx-auto px-6 md:px-10 py-16 md:py-24">
+    <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-3">dúvidas frequentes</p>
+    <h2 class="font-display text-2xl md:text-3xl text-[var(--color-caramel-deep)] mb-10">
+      Perguntas antes de encomendar
+    </h2>
+
+    <div class="divide-y divide-[var(--color-line)]">
+      {faqs.map((item, i) => (
+        <details class="group py-5" name="faq">
+          <summary class="flex items-center justify-between cursor-pointer list-none">
+            <span class="font-display text-base md:text-lg pr-4">{item.q}</span>
+            <span class="shrink-0 text-[var(--color-caramel)] text-xl transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <p class="text-sm text-[var(--color-choc)]/70 leading-relaxed mt-3 pr-8">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

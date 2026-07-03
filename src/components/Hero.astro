@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero.jpg';
+// Troque src/assets/hero.jpg pela foto real (mesmo nome de arquivo, ou ajuste o import acima).
+---
+
+<section class="max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16 md:pb-20 grid md:grid-cols-2 gap-10 items-center">
+  <div>
+    <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-4">
+      ateliê de pintura
+    </p>
+    <h1 class="font-display text-4xl md:text-6xl leading-[1.05] text-[var(--color-caramel-deep)]">
+      Arte que aquece<br />qualquer parede.
+    </h1>
+    <p class="mt-6 max-w-md text-[var(--color-choc)]/75 leading-relaxed">
+      Pinturas autorais feitas sob encomenda, em tons quentes e traços
+      únicos — cada peça pensada especialmente pra você. Troque este
+      parágrafo por uma frase que descreva o trabalho dela de verdade.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a
+        href="#contato"
+        class="bg-[var(--color-caramel)] text-[var(--color-cream)] px-6 py-3 rounded-full text-sm hover:bg-[var(--color-caramel-deep)] transition-colors"
+      >
+        Fazer encomenda
+      </a>
+      <a
+        href="#portfolio"
+        class="border border-[var(--color-caramel)] text-[var(--color-caramel-deep)] px-6 py-3 rounded-full text-sm hover:bg-[var(--color-blush)] transition-colors"
+      >
+        Ver portfólio
+      </a>
+    </div>
+  </div>
+
+  <div class="relative aspect-[4/5] rounded-sm overflow-hidden">
+    <Image src={heroImage} alt="Peça em destaque do ateliê" class="w-full h-full object-cover" width={900} />
+  </div>
+</section>

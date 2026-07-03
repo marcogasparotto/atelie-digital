@@ -1,0 +1,139 @@
+---
+import { Image } from 'astro:assets';
+
+// ===== Como adicionar fotos reais =====
+// É só salvar os arquivos em src/assets/quadros/ (jpg, jpeg, png ou webp).
+// Eles aparecem aqui automaticamente, na ordem alfabética do nome do arquivo,
+// num mosaico que se ajusta sozinho à proporção de cada foto.
+//
+// Sugestão de nome: 01-nome-da-peca.jpg, 02-outra-peca.jpg...
+// O texto que aparece ao passar o mouse vem do nome do arquivo (troque os
+// hífens/underscores por espaço), então pode nomear com carinho.
+//
+// ===== Destacar um quadro =====
+// Coloque a palavra "destaque" no nome do arquivo (ex: 03-destaque-nome-da-peca.jpg)
+// e ele aparece maior no mosaico, ocupando mais espaço que os outros.
+
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/quadros/*.{jpeg,jpg,png,webp}',
+  { eager: true }
+);
+
+const pieces = Object.entries(imageFiles)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, mod]) => {
+    const filename = path.split('/').pop()?.replace(/\.[^.]+$/, '') ?? '';
+    const featured = /destaque/i.test(filename);
+    const label = filename
+      .replace(/^\d+[-_ ]*/, '')
+      .replace(/destaque[-_ ]*/i, '')
+      .replace(/[-_]/g, ' ')
+      .trim();
+    return { img: mod.default, label: label || filename, featured };
+  });
+---
+
+<section id="portfolio" class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-24">
+  <div class="flex items-baseline justify-between mb-8">
+    <div>
+      <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-3">portfólio</p>
+      <h2 class="font-display text-2xl md:text-3xl text-[var(--color-caramel-deep)]">Trabalhos recentes</h2>
+    </div>
+    <p class="hidden sm:block text-sm text-[var(--color-choc)]/50">passe o mouse pra ver o nome de cada peça</p>
+  </div>
+
+  {pieces.length === 0 ? (
+    <p class="text-sm text-[var(--color-choc)]/50 border border-dashed border-[var(--color-line)] rounded-sm p-8 text-center">
+      Nenhuma imagem em <code>src/assets/quadros/</code> ainda — adicione fotos das pinturas
+      pra elas aparecerem aqui.
+    </p>
+  ) : (
+    <div
+      id="portfolio-grid"
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      style="grid-auto-rows: 8px; grid-auto-flow: dense;"
+    >
+      {pieces.map((piece, i) => (
+        <div
+          class:list={["grid-item reveal group relative overflow-hidden rounded-sm opacity-0 translate-y-8 transition-all duration-700 ease-out", piece.featured && "col-span-2"]}
+          style={`transition-delay: ${Math.min(i, 8) * 90}ms`}
+        >
+          <Image
+            src={piece.img}
+            alt={piece.label}
+            width={piece.featured ? 1100 : 600}
+            class="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          />
+          <div class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class:list={["font-display text-[var(--color-cream)] leading-tight capitalize", piece.featured ? "text-2xl" : "text-lg"]}>
+              {piece.label}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</section>
+
+<script>
+  // Grid tipo "mosaico" com altura real: cada item ocupa quantas linhas de 8px
+  // forem necessárias pra caber a imagem inteira, sem esticar nem cortar.
+  // Isso permite que o item "destaque" (col-span-2) fique maior sem deixar buracos no layout.
+  function layoutGrid() {
+    const grid = document.getElementById('portfolio-grid');
+    if (!grid) return;
+
+    const styles = window.getComputedStyle(grid);
+    const rowHeight = parseInt(styles.getPropertyValue('grid-auto-rows')) || 8;
+    const rowGap = parseInt(styles.getPropertyValue('row-gap')) || 0;
+
+    grid.querySelectorAll<HTMLElement>('.grid-item').forEach((item) => {
+      const img = item.querySelector('img');
+      if (!img) return;
+      const height = img.getBoundingClientRect().height;
+      if (!height) return;
+      const rowSpan = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = `span ${rowSpan}`;
+    });
+  }
+
+  function debounce(fn: () => void, wait: number) {
+    let t: ReturnType<typeof setTimeout>;
+    return () => {
+      clearTimeout(t);
+      t = setTimeout(fn, wait);
+    };
+  }
+
+  const debouncedLayout = debounce(layoutGrid, 120);
+
+  document.querySelectorAll('#portfolio-grid img').forEach((img) => {
+    if (img instanceof HTMLImageElement && img.complete) {
+      layoutGrid();
+    } else {
+      img.addEventListener('load', layoutGrid);
+    }
+  });
+
+  window.addEventListener('load', layoutGrid);
+  window.addEventListener('resize', debouncedLayout);
+
+  // Revela cada quadro suavemente conforme entra na tela.
+  const items = document.querySelectorAll<HTMLElement>('#portfolio-grid .reveal');
+  if ('IntersectionObserver' in window && items.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('opacity-0', 'translate-y-8');
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    items.forEach((item) => observer.observe(item));
+  } else {
+    items.forEach((item) => item.classList.remove('opacity-0', 'translate-y-8'));
+  }
+</script>

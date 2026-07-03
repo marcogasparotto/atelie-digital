@@ -1,0 +1,62 @@
+---
+// Troque pelos depoimentos reais das clientes.
+const testimonials = [
+  {
+    name: "Emilly",
+    text: "Encomendei um quadro recentemente!!! ficou tudo muito perfeito!!! entregaram no dia certinho, estou apaixonada!!!",
+  },
+  {
+    name: "Bruna",
+    text: "Estou apaixonada pelo meu quadro! A pintura ficou impecável, com cores lindas e acabamento perfeito. Dá para perceber o cuidado e o talento em cada traço. Superou todas as minhas espectativas!",
+  },
+  {
+    name: "Cliente 03",
+    text: "Já é a segunda vez que compro. Qualidade e capricho de sempre.",
+  },
+  {
+    name: "Cliente 04",
+    text: "O quadro virou o centro das atenções na decoração do quarto.",
+  },
+];
+---
+
+<section id="depoimentos" class="border-t border-[var(--color-line)] bg-[var(--color-blush)]/50">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-16 md:py-24">
+    <div class="flex items-baseline justify-between mb-8">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-3">depoimentos</p>
+        <h2 class="font-display text-2xl md:text-3xl text-[var(--color-caramel-deep)]">Quem já tem uma peça em casa</h2>
+      </div>
+      <div class="hidden sm:flex gap-2">
+        <button id="testi-prev" aria-label="Depoimento anterior" class="w-10 h-10 rounded-full border border-[var(--color-caramel)] flex items-center justify-center hover:bg-[var(--color-caramel)] hover:text-[var(--color-cream)] transition-colors">‹</button>
+        <button id="testi-next" aria-label="Próximo depoimento" class="w-10 h-10 rounded-full border border-[var(--color-caramel)] flex items-center justify-center hover:bg-[var(--color-caramel)] hover:text-[var(--color-cream)] transition-colors">›</button>
+      </div>
+    </div>
+
+    <div id="testi-track" class="flex gap-5 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-2">
+      {testimonials.map((t) => (
+        <div class="snap-start shrink-0 w-[85%] sm:w-[45%] lg:w-[32%] bg-[var(--color-cream)] rounded-sm p-6">
+          <p class="text-[var(--color-choc)]/80 leading-relaxed">"{t.text}"</p>
+          <p class="font-display text-[var(--color-caramel-deep)] mt-4">{t.name}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("testi-track");
+  const prev = document.getElementById("testi-prev");
+  const next = document.getElementById("testi-next");
+
+  function scrollByCard(dir: number) {
+    if (!track) return;
+    const card = track.querySelector("div");
+    const gap = 20; // gap-5
+    const width = (card?.clientWidth ?? 300) + gap;
+    track.scrollBy({ left: dir * width, behavior: "smooth" });
+  }
+
+  prev?.addEventListener("click", () => scrollByCard(-1));
+  next?.addEventListener("click", () => scrollByCard(1));
+</script>

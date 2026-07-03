@@ -1,0 +1,62 @@
+---
+const links = [
+  { href: "#portfolio", label: "Portfólio" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "#depoimentos", label: "Depoimentos" },
+  { href: "#faq", label: "Dúvidas" },
+  { href: "#contato", label: "Contato" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-[var(--color-cream)]/90 backdrop-blur-sm border-b border-[var(--color-line)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+    <a href="#" class="font-display text-lg text-[var(--color-caramel-deep)]">
+      nome do ateliê
+    </a>
+
+    <nav class="hidden md:flex gap-7 text-sm">
+      {links.map((link) => (
+        <a href={link.href} class="hover:text-[var(--color-caramel)] transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="#contato"
+      class="hidden md:inline-block text-sm bg-[var(--color-caramel)] text-[var(--color-cream)] px-4 py-2 rounded-full hover:bg-[var(--color-caramel-deep)] transition-colors"
+    >
+      Fazer encomenda
+    </a>
+
+    <!-- Botão mobile -->
+    <button
+      id="menu-toggle"
+      class="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+    >
+      <span class="w-6 h-px bg-[var(--color-choc)]"></span>
+      <span class="w-6 h-px bg-[var(--color-choc)]"></span>
+    </button>
+  </div>
+
+  <!-- Menu mobile -->
+  <nav id="mobile-menu" class="hidden md:hidden flex-col gap-1 px-6 pb-5 text-sm">
+    {links.map((link) => (
+      <a href={link.href} class="py-2 border-b border-[var(--color-line)] last:border-0">
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("flex");
+    menu?.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", String(!!isOpen));
+  });
+</script>

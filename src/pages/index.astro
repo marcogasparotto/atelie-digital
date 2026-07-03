@@ -1,16 +1,24 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Services from '../components/Services.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Ateliê Digital</title>
-  </head>
-
-  <body class="bg-zinc-950 text-white">
-    <h1 class="text-5xl font-bold text-blue-500">
-      Tailwind funcionando 🚀
-    </h1>
-  </body>
-</html>
+<Layout title="Ateliê — troque pelo nome dela">
+  <Header />
+  <Hero />
+  <About />
+  <Services />
+  <Portfolio />
+  <Testimonials />
+  <FAQ />
+  <Contact />
+  <Footer />
+</Layout>
