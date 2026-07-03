@@ -1,22 +1,29 @@
 ---
 import { Image } from 'astro:assets';
 import heroImage from '../assets/hero.jpg';
-// Troque src/assets/hero.jpg pela foto real (mesmo nome de arquivo, ou ajuste o import acima).
+// Substitua hero.jpg pela foto principal da artista ou por uma obra em destaque.
 ---
 
 <section class="max-w-6xl mx-auto px-6 md:px-10 pt-16 md:pt-24 pb-16 md:pb-20 grid md:grid-cols-2 gap-10 items-center">
+
   <div>
     <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-4">
-      ateliê de pintura
+      Ateliê de Pintura
     </p>
+
     <h1 class="font-display text-4xl md:text-6xl leading-[1.05] text-[var(--color-caramel-deep)]">
-      Arte que aquece<br />qualquer parede.
+      Obras que transformam<br />
+      ambientes e histórias.
     </h1>
+
     <p class="mt-6 max-w-md text-[var(--color-choc)]/75 leading-relaxed">
-      Pinturas autorais feitas sob encomenda, em tons quentes e traços
-      únicos — cada peça pensada especialmente pra você. Troque este
-      parágrafo por uma frase que descreva o trabalho dela de verdade.
+      Bem-vindo ao meu ateliê. Sou <strong>Jove</strong> e desenvolvo pinturas
+      autorais em óleo sobre tela, criando obras exclusivas que unem técnica,
+      sensibilidade e identidade. Cada pintura é produzida artesanalmente,
+      respeitando a inspiração de cada cliente e transformando memórias,
+      emoções e referências em uma peça única.
     </p>
+
     <div class="mt-8 flex flex-wrap gap-4">
       <a
         href="#contato"
@@ -24,6 +31,7 @@ import heroImage from '../assets/hero.jpg';
       >
         Fazer encomenda
       </a>
+
       <a
         href="#portfolio"
         class="border border-[var(--color-caramel)] text-[var(--color-caramel-deep)] px-6 py-3 rounded-full text-sm hover:bg-[var(--color-blush)] transition-colors"
@@ -33,7 +41,13 @@ import heroImage from '../assets/hero.jpg';
     </div>
   </div>
 
-  <div class="relative aspect-[4/5] rounded-sm overflow-hidden">
-    <Image src={heroImage} alt="Peça em destaque do ateliê" class="w-full h-full object-cover" width={900} />
+  <div class="relative aspect-[4/5] overflow-hidden rounded-md shadow-lg">
+    <Image
+      src={heroImage}
+      alt="Obra em destaque do Ateliê Jove"
+      width={900}
+      class="w-full h-full object-cover"
+    />
   </div>
+
 </section>
