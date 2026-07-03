@@ -2,86 +2,32 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative overflow-hidden border-t border-[var(--color-line)] bg-[var(--color-caramel-deep)] text-[var(--color-cream)]">
-  <!-- Flores decorativas — SVG simples nos tons da paleta, puramente ilustrativo -->
-  <svg
-    class="pointer-events-none absolute -bottom-6 left-0 w-full h-24 md:h-32 opacity-90"
-    viewBox="0 0 1200 160"
-    preserveAspectRatio="xMidYMax slice"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <!-- caule -->
-    <path d="M80 160 C80 100 110 70 90 20" stroke="#7C8B5C" stroke-width="3" fill="none" opacity="0.6" />
-    <path d="M300 160 C300 110 270 80 290 30" stroke="#7C8B5C" stroke-width="3" fill="none" opacity="0.6" />
-    <path d="M560 160 C560 100 590 65 570 15" stroke="#7C8B5C" stroke-width="3" fill="none" opacity="0.6" />
-    <path d="M840 160 C840 105 810 75 830 25" stroke="#7C8B5C" stroke-width="3" fill="none" opacity="0.6" />
-    <path d="M1100 160 C1100 100 1130 70 1110 20" stroke="#7C8B5C" stroke-width="3" fill="none" opacity="0.6" />
-
-    <!-- flor: 5 pétalas + miolo, repetida em posições/tamanhos diferentes -->
-    <g transform="translate(90,20) scale(1.1)">
-      <circle cx="-14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="-9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="-16" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="0" r="7" fill="#C17F3E" />
-    </g>
-
-    <g transform="translate(290,30) scale(0.8)">
-      <circle cx="-14" cy="-6" r="10" fill="#D9A25F" />
-      <circle cx="14" cy="-6" r="10" fill="#D9A25F" />
-      <circle cx="-9" cy="14" r="10" fill="#D9A25F" />
-      <circle cx="9" cy="14" r="10" fill="#D9A25F" />
-      <circle cx="0" cy="-16" r="10" fill="#D9A25F" />
-      <circle cx="0" cy="0" r="7" fill="#8A5225" />
-    </g>
-
-    <g transform="translate(570,15) scale(1.3)">
-      <circle cx="-14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="-9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="-16" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="0" r="7" fill="#C17F3E" />
-    </g>
-
-    <g transform="translate(830,25) scale(0.9)">
-      <circle cx="-14" cy="-6" r="10" fill="#D9A25F" />
-      <circle cx="14" cy="-6" r="10" fill="#D9A25F" />
-      <circle cx="-9" cy="14" r="10" fill="#D9A25F" />
-      <circle cx="9" cy="14" r="10" fill="#D9A25F" />
-      <circle cx="0" cy="-16" r="10" fill="#D9A25F" />
-      <circle cx="0" cy="0" r="7" fill="#8A5225" />
-    </g>
-
-    <g transform="translate(1110,20) scale(1.05)">
-      <circle cx="-14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="14" cy="-6" r="10" fill="#EFD9BE" />
-      <circle cx="-9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="9" cy="14" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="-16" r="10" fill="#EFD9BE" />
-      <circle cx="0" cy="0" r="7" fill="#C17F3E" />
-    </g>
-  </svg>
-
-  <div class="relative max-w-6xl mx-auto px-6 md:px-10 pt-16 pb-8 md:pt-24">
+<footer class="border-t border-[var(--color-line)] bg-[var(--color-caramel-deep)] text-[var(--color-cream)]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 py-12 md:py-16">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
       <div>
-        <p class="font-display text-2xl">Maria Jove</p>
+        <p class="font-display text-2xl">Ateliê Maria Jove</p>
         <p class="text-sm opacity-75 mt-2 max-w-xs">
-          Quadros e pinturas autorais, feitos à mão, um de cada vez.
+          Pinturas autorais em óleo sobre tela, criadas com dedicação,
+          sensibilidade e exclusividade para cada cliente.
         </p>
       </div>
 
       <div class="flex gap-6 text-sm">
-        <a href="#portfolio" class="hover:opacity-70 transition-opacity">Portfólio</a>
-        <a href="#depoimentos" class="hover:opacity-70 transition-opacity">Depoimentos</a>
-        <a href="#contato" class="hover:opacity-70 transition-opacity">Contato</a>
+        <a href="#portfolio" class="hover:opacity-70 transition-opacity">
+          Portfólio
+        </a>
+        <a href="#sobre" class="hover:opacity-70 transition-opacity">
+          Sobre
+        </a>
+        <a href="#contato" class="hover:opacity-70 transition-opacity">
+          Contato
+        </a>
       </div>
     </div>
 
-    <div class="mt-16 pt-6 border-t border-[var(--color-cream)]/20 text-xs opacity-60">
-      © {year} Maria Jove. Todos os direitos reservados.
+    <div class="mt-10 pt-6 border-t border-[var(--color-cream)]/20 text-xs opacity-60">
+      © {year} Ateliê Maria Jove. Todos os direitos reservados.
     </div>
   </div>
 </footer>
