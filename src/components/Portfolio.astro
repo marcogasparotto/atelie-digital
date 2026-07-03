@@ -1,19 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 
-// ===== Como adicionar fotos reais =====
-// É só salvar os arquivos em src/assets/quadros/ (jpg, jpeg, png ou webp).
-// Eles aparecem aqui automaticamente, na ordem alfabética do nome do arquivo,
-// num mosaico que se ajusta sozinho à proporção de cada foto.
-//
-// Sugestão de nome: 01-nome-da-peca.jpg, 02-outra-peca.jpg...
-// O texto que aparece ao passar o mouse vem do nome do arquivo (troque os
-// hífens/underscores por espaço), então pode nomear com carinho.
-//
-// ===== Destacar um quadro =====
-// Coloque a palavra "destaque" no nome do arquivo (ex: 03-destaque-nome-da-peca.jpg)
-// e ele aparece maior no mosaico, ocupando mais espaço que os outros.
-
 const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/quadros/*.{jpeg,jpg,png,webp}',
   { eager: true }
@@ -39,7 +26,7 @@ const pieces = Object.entries(imageFiles)
       <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-caramel)] mb-3">portfólio</p>
       <h2 class="font-display text-2xl md:text-3xl text-[var(--color-caramel-deep)]">Trabalhos recentes</h2>
     </div>
-    <p class="hidden sm:block text-sm text-[var(--color-choc)]/50">passe o mouse pra ver o nome de cada peça</p>
+    <p class="hidden sm:block text-sm text-[var(--color-choc)]/50">passe o mouse (ou toque) pra ver o nome de cada peça</p>
   </div>
 
   {pieces.length === 0 ? (
@@ -55,6 +42,7 @@ const pieces = Object.entries(imageFiles)
     >
       {pieces.map((piece, i) => (
         <div
+          data-quadro
           class:list={["grid-item reveal group relative overflow-hidden rounded-sm opacity-0 translate-y-8 transition-all duration-700 ease-out", piece.featured && "col-span-2"]}
           style={`transition-delay: ${Math.min(i, 8) * 90}ms`}
         >
@@ -64,7 +52,7 @@ const pieces = Object.entries(imageFiles)
             width={piece.featured ? 1100 : 600}
             class="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
-          <div class="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="quadro-overlay absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/50 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <p class:list={["font-display text-[var(--color-cream)] leading-tight capitalize", piece.featured ? "text-2xl" : "text-lg"]}>
               {piece.label}
             </p>
@@ -76,9 +64,6 @@ const pieces = Object.entries(imageFiles)
 </section>
 
 <script>
-  // Grid tipo "mosaico" com altura real: cada item ocupa quantas linhas de 8px
-  // forem necessárias pra caber a imagem inteira, sem esticar nem cortar.
-  // Isso permite que o item "destaque" (col-span-2) fique maior sem deixar buracos no layout.
   function layoutGrid() {
     const grid = document.getElementById('portfolio-grid');
     if (!grid) return;
@@ -135,5 +120,25 @@ const pieces = Object.entries(imageFiles)
     items.forEach((item) => observer.observe(item));
   } else {
     items.forEach((item) => item.classList.remove('opacity-0', 'translate-y-8'));
+  }
+
+  const cards = document.querySelectorAll<HTMLElement>('#portfolio-grid [data-quadro]');
+  const hasHover = window.matchMedia('(hover: hover)').matches;
+
+  if (!hasHover && cards.length) {
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const alreadyOpen = card.classList.contains('is-active');
+        cards.forEach((c) => c.classList.remove('is-active'));
+        if (!alreadyOpen) card.classList.add('is-active');
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#portfolio-grid [data-quadro]')) {
+        cards.forEach((c) => c.classList.remove('is-active'));
+      }
+    });
   }
 </script>

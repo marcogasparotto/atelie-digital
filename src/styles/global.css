@@ -25,3 +25,8 @@ body {
 /* Carrossel de depoimentos: esconde a barra de scroll mas mantém o gesto de arrastar/scroll */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Portfólio: mostra o nome do quadro ao tocar no celular, igual ao hover no PC */
+.grid-item.is-active .quadro-overlay {
+  opacity: 1;
+}
